@@ -1,0 +1,107 @@
+<ng-container *ngIf="controlVisible">
+<div [ngSwitch]="controlConfig.controlType"
+  class="form-control-container"
+  [class.unavailable]="controlUnavailable">
+    <ng-container *ngSwitchCase="ControlType.INPUT">
+      <span class="p-float-label">
+        <input *ngIf="controlConfig.type === 'text'" type="text" pInputText [formControl]="formCtrl"> 
+        <p-inputNumber *ngIf="controlConfig.type === 'number'" [formControl]="formCtrl"></p-inputNumber>
+        <p-calendar *ngIf="controlConfig.type === 'date'" [formControl]="formCtrl"></p-calendar>
+        <label [class.mandatory-control]="isRequired" [for]="controlConfig.key">{{ controlConfig.label }}</label>
+      </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.DATE">
+      <span class="p-float-label">
+        <p-calendar [formControl]="formCtrl"></p-calendar>
+        <label [class.mandatory-control]="isRequired" [for]="controlConfig.key">{{ controlConfig.label }}</label>
+      </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.SELECT">
+      <label *ngIf="controlConfig.label" [class.mandatory-control]="isRequired"
+        [for]="controlConfig.key" style="width: 75px; display: inline-block;">
+        {{ controlConfig.label }}
+      </label>
+      <p-dropdown [formControl]="formCtrl"
+        [options]="controlConfig.options"
+        optionLabel="label"
+        optionValue="value">
+      </p-dropdown>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.MULTISELECT">
+      <label *ngIf="controlConfig.label" [class.mandatory-control]="isRequired"
+        [for]="controlConfig.key" style="width: 75px; display: inline-block;">
+        {{ controlConfig.label }}
+      </label>
+      <p-multiSelect
+        [options]="controlConfig.options"
+        [formControl]="formCtrl"
+        defaultLabel="Select a value">
+    </p-multiSelect>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.AUTOCOMPLETE">
+      <span class="p-float-label">
+        <p-autoComplete 
+          [formControl]="formCtrl"
+          [virtualScroll]="true"
+          [suggestions]="autocompleteSuggestions$ | async"
+          [virtualScrollItemSize]="34"
+          [minLength]="2"
+          (completeMethod)="onAutocomplete($event.query)"
+          (onKeyUp)="onAutocompleteKeyUp()"
+          (onSelect)="onSelect($event)"
+          [dropdown]="false"
+          scrollHeight="200px"
+          emptyMessage="No results"
+          [showEmptyMessage]="true">
+          <ng-template let-suggestion pTemplate="item">
+            <span>{{suggestion.label}} ({{suggestion.value}})</span>
+          </ng-template>
+        </p-autoComplete>
+        <label [for]="controlConfig.key" [class.mandatory-control]="isRequired">{{ controlConfig.label }}</label>
+      </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.CHECKBOX">
+      <p-checkbox [formControl]="formCtrl" [label]="controlConfig.label" [binary]="true" class="checkbox-input"></p-checkbox>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ControlType.LIST">
+      <div class="form-control-container">
+        <span class="label" [class.mandatory-control]="isRequired">{{ controlConfig.label}}</span>
+        <div class="listbox">
+          <div class="option" *ngFor="let val of controlConfig.value | keyvalue">
+            <app-dynamic-form
+              [controls]="[getChildControl(controlConfig, val.key)]"
+              [values]="controlConfig.value"
+              (formChanged)="updateChildControlValue($event)">
+            </app-dynamic-form>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+  <ng-container *ngSwitchCase="ControlType.TABLE">
+      <div class="form-control-container">
+        <span class="label" [class.mandatory-control]="isRequired">{{ controlConfig.label }}</span>
+        <div class="listbox table-value">
+          {{ controlConfig.value.length }}
+          <button pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-sm p-button-rounded p-button-text"
+            (click)="onTableDisplay(controlConfig)">
+          </button>
+        </div>
+      </div>       
+    </ng-container> 
+  </div>
+  
+  <small class="p-error" *ngIf="formCtrl.invalid && formCtrl.touched">
+    {{ error }}
+  </small>
+</ng-container>

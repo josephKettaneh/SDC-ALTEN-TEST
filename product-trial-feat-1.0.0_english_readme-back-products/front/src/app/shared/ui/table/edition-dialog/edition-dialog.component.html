@@ -1,0 +1,33 @@
+<p-dialog [(visible)]="visible"
+  [style]="{width: '450px'}"
+  [header]="header"
+  [modal]="true"
+  styleClass="p-fluid"
+  (onHide)="onHide()">
+  <ng-template pTemplate="content">
+    <app-dynamic-form
+      [controls]="controls"
+      [values]="editedEntry"
+      [creation]="creation"
+      (formChanged)="onFormChanged($event)">
+    </app-dynamic-form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="onHide()">
+    </button>
+    <button pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-success"
+      [disabled]="invalidForm"
+      (click)="onSave()">
+    </button>
+  </ng-template>
+</p-dialog>

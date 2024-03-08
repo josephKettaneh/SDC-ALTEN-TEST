@@ -1,0 +1,55 @@
+.p-datatable {
+  display: block;
+  margin: 10px;
+
+  table {
+    width: 100%;
+  }
+
+  .p-datatable-tbody tr {
+    td .cell-action {
+      visibility: hidden;
+    }
+    // &:nth-child(odd) {
+    //   background-color: transparent;
+    // }
+    &:hover {
+      td .cell-action {
+        visibility: visible;
+      }
+    }
+  }
+
+  .p-datatable-thead tr th {
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .sub-container {
+        display: flex;
+      }
+    }
+  }
+
+  tr,
+  th,
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    span:not(.p-button-icon) {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.table .p-toolbar {
+  margin: 0 10px;
+}

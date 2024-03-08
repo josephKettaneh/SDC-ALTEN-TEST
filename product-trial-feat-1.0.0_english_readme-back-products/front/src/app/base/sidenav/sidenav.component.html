@@ -1,0 +1,29 @@
+<div class="sidenav" [class.expanded]="sidenavService.getExpanded()"
+    (mouseover)="sidenavService.setExpanded(true)"
+    (mouseleave)="sidenavService.setExpanded(false)"> 
+    <i class="pi pi-bookmark pinned-icon"
+        *ngIf="!sidenavService.getMobileDisplay()"
+        [class.active]="sidenavService.getPinned()"
+        (click)="sidenavService.togglePinned()"
+        data-expanded-only>
+    </i>
+    <div class="title-container" [routerLink]="'/'">
+        <img src="favicon.ico" height="25">
+        <div class="title"data-expanded-only>
+            <span class="first">Alten Shop</span>
+        </div>
+    </div>   
+    <ul>
+        <li *ngFor="let item of sidenavItems" [class.router-link-active]="rla.isActive">
+            <div class="li-container"
+                (click)="onSidenavItemClick(item, $event)"
+                [routerLink]="item.link"
+                [routerLinkActiveOptions]="item.link === '/' ? {exact: true} : {exact: false}"
+                routerLinkActive
+                #rla="routerLinkActive">
+                <i class="pi pi-{{item.icon}} menu-icon"></i>
+                <span class="menu-title" data-expanded-only>{{ item.labels[lang] }}</span>
+            </div>
+        </li>
+    </ul>
+</div>

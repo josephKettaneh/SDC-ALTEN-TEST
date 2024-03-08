@@ -1,0 +1,37 @@
+.table {
+  th,
+  td {
+    overflow: hidden;
+  }
+
+  th.filter-row-th {
+    overflow: unset;
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1280px) {
+  .table td,
+  .table th {
+    &.large-display-only:not(.force-visible) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .table td,
+  .table th {
+    &.medium-display-only:not(.force-visible) {
+      display: none;
+    }
+  }
+}
+
+.p-button-text,
+.p-button-text:enabled:hover {
+  color: var(--primary-font-color);
+}

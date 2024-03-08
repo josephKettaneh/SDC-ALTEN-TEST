@@ -1,0 +1,43 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <button pButton pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="mr-2 p-button-secondary"
+          (click)="onNew()"
+          data-cy="new-button">
+        </button>
+        <button pButton pRipple
+          *ngIf="selectable"
+          label="Delete"
+          icon="pi pi-trash"
+          class="p-button-danger"
+          (click)="onDeleteMultiple()"
+          [disabled]="!selectedEntries || !selectedEntries.length">
+        </button>
+    </ng-template>
+  
+    <ng-template pTemplate="right">
+        <p-fileUpload mode="basic"
+          *ngIf="allowImport"
+          accept="image/*"
+          [maxFileSize]="1000000"
+          label="Import"
+          chooseLabel="Import"
+          class="mr-2 inline-block">
+        </p-fileUpload>
+        <button pButton pRipple
+          *ngIf="allowExport"
+          label="Export"
+          icon="pi pi-upload"
+          class="mr-2 p-button-help"
+          (click)="export()"
+          data-cy="export-button">
+        </button>
+        <button pButton pRipple
+          icon="pi pi-cog"
+          (click)="manageColumns()"
+          data-cy="params-button">
+        </button>
+    </ng-template>
+  </p-toolbar>

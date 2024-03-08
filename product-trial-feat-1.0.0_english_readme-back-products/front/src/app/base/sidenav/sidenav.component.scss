@@ -1,0 +1,133 @@
+.sidenav {
+  background-color: var(--primary-nav-color);
+  height: 100%;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  width: 60px;
+  transition: all 0.3s;
+
+  [data-expanded-only] {
+    display: none;
+  }
+
+  .pinned-icon {
+    position: absolute;
+    z-index: 4;
+    top: 26px;
+    right: 10px;
+    cursor: pointer;
+    color: white;
+
+    &.active {
+      color: var(--primary-color);
+    }
+  }
+
+  .title-container {
+    cursor: pointer;
+    color: var(--text-nav-color);
+    outline: 0;
+    padding-left: 18px;
+    font-weight: bold;
+    background-color: var(--primary-nav-color);
+    height: 60px;
+    line-height: 60px;
+    position: relative;    
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    span {
+      &.first {
+        font-size: 30px;
+      }
+      &:not(.first) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    li {
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      color: var(--text-nav-color);
+      cursor: pointer;
+      position: relative;
+
+      &.router-link-active {
+        background-color: var(--secondary-nav-color);
+        border-right: 4px solid var(--primary-color);
+      }
+
+      &.child-item-active {
+        font-weight: bold;
+        background-color: var(--primary-color);
+        border-radius: 8px;
+        height: 44px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &:hover:not(.router-link-active) {
+        padding-left: 20px;
+        color: #fff;
+      }
+
+      .li-container {
+        text-align: center;
+        min-height: 30px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+        .menu-icon {
+          font-size: 1.2rem;
+        }
+  
+        .chevron {
+          position: absolute;
+          right: 20px;
+        }
+      }
+
+    }
+  }
+
+  
+  &.expanded {
+    width: 260px;
+
+    span.first {
+      padding-left: 4px;
+    }
+
+    [data-expanded-only] {
+      display: inline-block;
+    }
+
+    ul li {
+      padding: 12px 30px 12px 18px;
+
+      .li-container {
+        text-align: unset;
+
+        .menu-icon {
+          margin-right: 12px;
+          float: left;
+        }
+      }
+    }
+  }
+  
+}

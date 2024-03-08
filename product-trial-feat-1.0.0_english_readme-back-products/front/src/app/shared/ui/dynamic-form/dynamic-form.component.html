@@ -1,0 +1,13 @@
+<div *ngIf="form" [formGroup]="form" class="form-container">
+  <ng-container *ngFor="let control of controlsWithValues">
+    <app-dynamic-form-control
+      [controlConfig]="control"
+      [formCtrl]="$any(form.get($any(control.key)))"
+      [creation]="creation"
+      (tableControlClicked)="onTableDisplay($event)"
+      (childControlChanged)="updateChildControlValue($event, control)"
+      (valuePreset)="updateControl($event)">
+    </app-dynamic-form-control>
+  </ng-container>
+</div>
+

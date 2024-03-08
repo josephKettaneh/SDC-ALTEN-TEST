@@ -1,0 +1,99 @@
+.panel-list {
+  // Overrides material padding
+  .mat-menu-content:not(:empty) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .small {
+    color: #ccc;
+    font-size: 0.8rem;
+  }
+
+  .title {
+    background-color: var(--secondary-bg-color);
+    line-height: 3rem;
+    text-align: center;
+
+    &.bg-colored {
+      background-color: var(--primary-color);
+    }
+  }
+
+  .panel-list-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--seondary-bg-color);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--tertiary-bg-color);
+
+      &.unread button {
+        visibility: visible;
+      }
+    }
+
+    &.unread {
+      font-weight: bold;
+      border-left: 4px solid;
+    }
+
+    .indicator {
+      margin-right: 0.5rem;
+      width: 20%;
+
+      .info {
+        color: var(--info-color);
+      }
+
+      .warn {
+        color: var(--warn-color);
+      }
+
+      img {
+        border-radius: 50%;
+      }
+    }
+
+    .content {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .small {
+        width: 100%;
+      }
+
+      .message {
+        width: 80%;
+        margin: 0.3rem 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      button {
+        width: 20%;
+        visibility: hidden;
+      }
+    }
+  }
+
+  .footer {
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--tertiary-bg-color);
+    }
+
+  }
+}
+
+.p-datepicker-title button {
+  color: var(--primary-color)
+}

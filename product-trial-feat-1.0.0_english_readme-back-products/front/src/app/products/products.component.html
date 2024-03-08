@@ -1,0 +1,44 @@
+<div class="app-frame">
+
+	<div class="card">
+		<app-list [items]="products"
+			[listItemTemplate]="listItemTemplate"
+			[gridItemTemplate]="gridItemTemplate">
+		</app-list>
+	</div>
+
+	<ng-template #listItemTemplate let-item>
+		<div class="product-list-detail">
+			<div class="product-name">{{item.name}}</div>
+			<div class="product-description">{{item.description}}</div>
+			<p-rating [ngModel]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+			<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{item.category}}</span>
+		</div>
+		<div class="product-list-action">
+			<span class="product-price">${{item.price}}</span>
+			<p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'">
+			</p-button>
+			<span [class]="'product-badge status-' + item.inventoryStatus.toLowerCase()">{{item.inventoryStatus}}</span>
+		</div>
+	</ng-template>
+
+	<ng-template #gridItemTemplate let-item>
+		<div class="product-grid-item-top">
+			<div>
+				<i class="pi pi-tag product-category-icon"></i>
+				<span class="product-category">{{item.category}}</span>
+			</div>
+			<span
+				[class]="'product-badge status-' + item.inventoryStatus.toLowerCase()">{{item.inventoryStatus}}</span>
+		</div>
+		<div class="product-grid-item-content">
+			<div class="product-name">{{item.name}}</div>
+			<div class="product-description">{{item.description}}</div>
+			<p-rating [ngModel]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+		</div>
+		<div class="product-grid-item-bottom">
+			<span class="product-price">${{item.price}}</span>
+			<p-button icon="pi pi-shopping-cart" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+		</div>
+	</ng-template>
+</div>

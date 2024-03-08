@@ -1,0 +1,10 @@
+<button pButton
+  pRipple
+  [title]="state === 'isDone' ? config.doneLabel : (state === 'isLoading' ? config.loadingLabel : config.defaultLabel)"
+  [icon]="'pi pi-' + (state === 'isDone' ? (config.checkIcon ? config.checkIcon : 'check') : (state === 'isLoading' ? 'sync pi-spin' : config.defaultIcon))"
+  [label]="config.hideLabel ? '' : state === 'isDone' ? config.doneLabel : (state === 'isLoading' ? config.loadingLabel : config.defaultLabel)"
+  [disabled]="state !== 'isEnabled'"
+  [style.width]="width"
+  [ngClass]="config.backgroundColor ? ('p-button-' + config.backgroundColor) : ''"
+  (click)="onClick()">
+</button>

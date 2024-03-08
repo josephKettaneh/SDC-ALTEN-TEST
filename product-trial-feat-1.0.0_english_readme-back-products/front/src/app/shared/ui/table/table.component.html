@@ -1,0 +1,102 @@
+<app-table-toolbar
+  [allowExport]="false"
+  [allowImport]="false"
+  [selectedEntries]="selectedEntries"
+  [selectable]="selectable"
+  (deleteMultipleClicked)="onDeleteMultiple()"
+  (newClicked)="onNew()"
+  (manageColumnsClicked)="manageColumns()">
+</app-table-toolbar>
+ 
+<p-table #dataTable [columns]="cols"
+  [value]="data"
+  class="table"
+  *ngIf="data && data.length || !data?.length && lazy"
+  styleClass="p-datatable-striped p-datatable-gridlines"
+  [rowHover]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10,25,50]"
+  [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [(selection)]="selectedEntries"
+  [lazy]="lazy"
+  [totalRecords]="totalRecords"
+  (onLazyLoad)="onLazyLoad($event)"
+  data-cy="table">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem" *ngIf="selectable">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <ng-container *ngFor="let col of columns">
+        <th *ngIf="col.isVisible && !col.hidden"
+          [pSortableColumn]="col.key"
+          [title]="col.label"
+          [ngClass]="col.minScreenSize + '-display-only'"
+          [class.force-visible]="col.default"
+          scope="th"
+          data-cy="table-header">
+          <div class="header-container">
+            <div class="sub-container">
+              <span>{{ col.label }}</span>
+              <p-sortIcon *ngIf="col.sortable" [field]="col.key"></p-sortIcon>
+            </div>
+          </div>
+        </th>
+      </ng-container>
+      <th scope="th">Actions</th>
+    </tr>
+    <tr>
+      <th *ngIf="selectable"></th>
+      <ng-container *ngFor="let col of columns">
+        <th *ngIf="col.filterable && col.isVisible && !col.hidden"
+          class="filter-row-th"
+          [ngClass]="col.minScreenSize + '-display-only'"
+          [class.force-visible]="col.isVisible"
+          scope="th"
+          data-cy="table-filter">
+            <app-table-filter-cell [col]="col"></app-table-filter-cell>
+        </th>
+      </ng-container>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+    <tr>
+      <td *ngIf="selectable">
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <ng-container *ngFor="let col of columns">
+        <td *ngIf="col.isVisible && !col.hidden"
+          [title]="col.tooltip(rowData[col.key])"
+          [ngClass]="col.minScreenSize + '-display-only'"
+          [class.force-visible]="col.isVisible">
+          <span [innerHtml]="col.renderer(rowData[col.key])"></span>
+        </td>
+      </ng-container>
+      <td>
+        <app-table-actions-cell
+          (editClicked)="onEdit(rowData)"
+          (deleteClicked)="onDelete(rowData.id)">
+        </app-table-actions-cell>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-columns-management-dialog *ngIf="columnsConfigDialogDisplayed"
+  [visible]="columnsConfigDialogDisplayed"
+  [cols]="cols"
+  (hide)="hideDialog()">
+</app-columns-management-dialog>
+
+<app-edition-dialog *ngIf="entryEditionDialogDisplayed"
+  [visible]="entryEditionDialogDisplayed"
+  [header]="entity.name + ' Details'"
+  [controls]="config"
+  [editedEntry]="editedEntry"
+  [creation]="creation"
+  (hide)="hideDialog()"
+  (saved)="onEditedEntrySave($event)">
+</app-edition-dialog>

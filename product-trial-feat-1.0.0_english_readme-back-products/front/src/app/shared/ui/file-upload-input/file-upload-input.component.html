@@ -1,0 +1,24 @@
+<label for="file-upload" class="custom-file-upload"
+  [class.dragged-over]="isDraggedOver"
+  (drop)="onDrop($event, fileInput)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (dragenter)="prevent($event)">
+  <i class="pi pi-cloud-upload upload-icon"></i>
+  <p>Drag and drop or <span class="link">browse</span> your files</p>
+  <p class="small">Maximum size: {{maxFileSize / 1000000}} Mb</p>
+  <p class="small">Allowed extensions: {{accept}}</p>
+</label>
+
+<input #fileInput id="file-upload" type="file" [accept]="accept" (change)="onFileUploaded(fileInput)"/>
+
+<div class="uploaded-file-container" *ngIf="displayImage && imgSrc">
+  <img class="img-preview" [src]="imgSrc" alt="image preview" (click)="openImg()" title="Open in a new tab">
+  <span>{{filename}}</span>
+  <button pButton
+    pRipple
+    icon="pi pi-trash"
+    class="p-button-sm p-button-rounded p-button-text"
+    (click)="clear(fileInput)">
+  </button>
+</div>

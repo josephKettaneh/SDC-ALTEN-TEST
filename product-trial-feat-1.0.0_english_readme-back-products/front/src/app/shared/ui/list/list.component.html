@@ -1,0 +1,69 @@
+<p-dataView #dv [value]="items"
+  [paginator]="true"
+  [rows]="searchParams.rows"
+  [totalRecords]="totalRecords || items.length"
+  [filterBy]="sortKey"
+  [sortField]="sortField"
+  [sortOrder]="sortOrder"
+  [layout]="layout"
+  [lazy]="backEndSearch"
+  (onLazyLoad)="onPageChange($event)"
+  [showJumpToPageDropdown]="false"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10,25,50]">
+  <!-- Header -->
+  <ng-template pTemplate="header">
+    <div class="form-control-container">
+      <p-dropdown [options]="sortOptions"
+        class="h-45"
+        placeholder="Sort By"
+        [formControl]="sortCtrl"
+        styleClass="p-mb-2 p-mb-md-0">
+      </p-dropdown>
+      <span class="p-input-icon-left h-45 grow m-5">
+        <i class="pi pi-search"></i>
+        <input #searchInput
+          type="search"
+          pInputText
+          placeholder="Search"
+          [formControl]="searchCtrl">
+      </span>
+      <div *ngIf="enableDateRange" class="h-45 m-5">
+        <p-calendar [formControl]="dateRangeCtrl" selectionMode="range" [readonlyInput]="true" inputId="range" [showButtonBar]="true"></p-calendar>
+      </div>
+      <p-dataViewLayoutOptions class="h-45 m-5"></p-dataViewLayoutOptions>
+      <button *ngIf="selectable"
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class="h-45 p-button-danger"
+        (click)="onDeleteSelection()"
+        [disabled]="!selection.length"
+        style="margin: 0 5px;">
+      </button>
+      <button *ngIf="enableAdd" pButton pRipple icon="pi pi-plus" class="h-45" (click)="add()"></button>
+    </div>
+  </ng-template>
+  <!-- List item template -->
+  <ng-template let-item let-i="rowIndex" pTemplate="listItem">
+    <div class="list-item-container">
+      <div class="list-item">
+        <ng-container *ngIf="selectable">
+          <div class="checkbox">
+            <p-checkbox [binary]="true" (onChange)="selectItem($event, item)"></p-checkbox>
+          </div>
+        </ng-container>
+        <ng-container [ngTemplateOutlet]="listItemTemplate" [ngTemplateOutletContext]="{$implicit: item, index: i, display: 'list'}"></ng-container>
+      </div>
+    </div>
+  </ng-template>
+  <!-- Grid item template -->
+  <ng-template let-item let-i="rowIndex" pTemplate="gridItem">
+    <div class="grid-item-container">
+      <div class="grid-item">
+        <ng-container [ngTemplateOutlet]="gridItemTemplate" [ngTemplateOutletContext]="{$implicit: item, index: i, display: 'grid'}"></ng-container>
+      </div>
+    </div>
+  </ng-template>
+</p-dataView>

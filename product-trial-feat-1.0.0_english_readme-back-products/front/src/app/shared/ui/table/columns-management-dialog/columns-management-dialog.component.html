@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="visible"
+  [style]="{width: '450px'}"
+  header="Manage columns"
+  [modal]="true"
+  styleClass="p-fluid"
+  (onHide)="onHide()">
+  <ng-template pTemplate="content">
+    <p *ngFor="let col of cols">
+      <p-checkbox *ngIf="!col.hidden"
+        [label]="col.label"
+        [(ngModel)]="col.isVisible"
+        [binary]="true">
+      </p-checkbox>
+    </p>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-success"
+      (click)="onHide()">
+    </button>
+  </ng-template>
+</p-dialog>

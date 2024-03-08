@@ -1,0 +1,19 @@
+.p-field {
+  margin-bottom: 1rem;
+
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.header {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  
+  mat-form-field {
+    width: 30%;
+    min-width: 200px;
+  }
+}
