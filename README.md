@@ -1,14 +1,17 @@
 # Test Tasks
 
-| Operation| Description                              | JAVA Backend Dev      | Postman Test                   | Connect API to Front                     | 
+| Operation| Description                              | Java/Spring  Dev      | Postman Test                   | Connect API to Front                     | 
 | ---------| ---------------------------------------- | --------------------- | ------------------------------ | ---------------------------------------- | 
-| POST     | Create a new products                    |          ✅           |             ✅                   |                   ✅                       |
-| GET      | Retrieve all products                    |          ✅           |              ✅                  |                    ✅                     |
-| GET      | Retrieve details for product 1           |          ✅           |             ✅                   |                   ✅                      |
-| PATCH    | Update details of product 1 if it exists |          ✅           |             ✅                   |                   ✅                      |
-| DELETE   | Remove product 1                         |          ✅           |             ✅                   |                   ✅                      |
+| POST     | Create a new products                    |          ✅           |             ✅                   |                   ✅                  |
+| GET      | Retrieve all products                    |          ✅           |             ✅                   |                   ✅                  |
+| GET      | Retrieve details for product 1           |          ✅           |             ✅                   |                   ✅                  |
+| PATCH    | Update details of product 1 if it exists |          ✅           |             ✅                   |                   ✅                  |
+| DELETE   | Remove product 1                         |          ✅           |             ✅                   |                   ✅                  |
+| SQL      | Connection with SQL DB                   |          ✅           |             ✅                   |                   ✅                  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Back-end
+# TEST DESCRIPTION
+## Back-end
 
 Develop a backend to manage products defined below. You can use the technology of your choice from the following list:
 
