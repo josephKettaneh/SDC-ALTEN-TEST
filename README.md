@@ -12,6 +12,14 @@
 
 # Test Done 
   All tests on the above tasks are done and presented in the folder  **tests**.
+  Example: 
+  
+  <img width="1061" alt="UPDATE-prod-1027" src="https://github.com/josephKettaneh/SDC-ALTEN-TEST/assets/86591689/27bda4f2-2819-42f5-9e8f-5ef59947c7d7">
+
+<img width="1440" alt="1-Alten-front-GET-ALL-prod" src="https://github.com/josephKettaneh/SDC-ALTEN-TEST/assets/86591689/9940d76b-7f5f-446a-a32d-b841219b15a5">
+
+<img width="1439" alt="2-Alten-front-UPDATE-prod-1005" src="https://github.com/josephKettaneh/SDC-ALTEN-TEST/assets/86591689/5ae13bae-f5bd-4c02-9683-974b004bd36b">
+
 
 # TEST DESCRIPTION
 ## Back-end
