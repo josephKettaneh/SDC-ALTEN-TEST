@@ -10,6 +10,9 @@
 | SQL      | Connection with SQL DB                   |          ✅           |             ✅                   |                   ✅                  |
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+# Test Done 
+  All tests on the above tasks are done and presented in the folder  **tests**.
+
 # TEST DESCRIPTION
 ## Back-end
 
