@@ -5,6 +5,7 @@ import com.joseph.sdctest.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,44 +51,29 @@ public class ProductService {
         }
     }
 
+
     public Product updateProduct(Integer productId, Product product) {
         Optional<Product> existingProductOptional = productDao.findById(productId);
         if (existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
 
-            // Update only the fields that are present in the request
-            if (product.getCode() != null) {
-                existingProduct.setCode(product.getCode());
-            }
-            if (product.getName() != null) {
-                existingProduct.setName(product.getName());
-            }
-            if (product.getDescription() != null) {
-                existingProduct.setDescription(product.getDescription());
-            }
-            if (product.getPrice() != 0) {  // Assuming 0 is not a valid price
-                existingProduct.setPrice(product.getPrice());
-            }
-            if (product.getQuantity() != 0) {  // Assuming 0 is not a valid quantity
-                existingProduct.setQuantity(product.getQuantity());
-            }
-            if (product.getInventoryStatus() != null) {
-                existingProduct.setInventoryStatus(product.getInventoryStatus());
-            }
-            if (product.getCategory() != null) {
-                existingProduct.setCategory(product.getCategory());
-            }
-            if (product.getImage() != null) {
-                existingProduct.setImage(product.getImage());
-            }
-            if (product.getRating() != 0) {  // Assuming 0 is not a valid rating
-                existingProduct.setRating(product.getRating());
+            Field[] fields = Product.class.getDeclaredFields();
+
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    Object newValue = field.get(product);
+                    if (newValue != null && !newValue.equals(field.get(existingProduct))) {
+                        field.set(existingProduct, newValue);
+                    }
+                } catch (IllegalAccessException e) {
+
+                    e.printStackTrace();
+                }
             }
 
-            // Save the updated product
             return productDao.save(existingProduct);
         } else {
-            // Handle product not found
             throw new RuntimeException("Product with id " + productId + " not found");
         }
     }
