@@ -53,29 +53,20 @@ public class ProductService {
 
 
     public Product updateProduct(Integer productId, Product product) {
-        Optional<Product> existingProductOptional = productDao.findById(productId);
-        if (existingProductOptional.isPresent()) {
-            Product existingProduct = existingProductOptional.get();
+        return productDao.findById(productId)
+                .map(p -> {
+                    p.setCode(product.getCode());
+                    p.setName(product.getName());
+                    p.setDescription(product.getDescription());
+                    p.setPrice(product.getPrice());
+                    p.setQuantity(product.getQuantity());
+                    p.setInventoryStatus(product.getInventoryStatus());
+                    p.setCategory(product.getCategory());
+                    p.setImage(product.getImage());
+                    p.setRating(product.getRating());
+                    return productDao.save(p);
+                }).orElseThrow(() -> new RuntimeException("Product with id " + productId + " not found"));
 
-            Field[] fields = Product.class.getDeclaredFields();
-
-            for (Field field : fields) {
-                try {
-                    field.setAccessible(true);
-                    Object newValue = field.get(product);
-                    if (newValue != null && !newValue.equals(field.get(existingProduct))) {
-                        field.set(existingProduct, newValue);
-                    }
-                } catch (IllegalAccessException e) {
-
-                    e.printStackTrace();
-                }
-            }
-
-            return productDao.save(existingProduct);
-        } else {
-            throw new RuntimeException("Product with id " + productId + " not found");
-        }
     }
 
 
